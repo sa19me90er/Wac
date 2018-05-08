@@ -1,0 +1,15 @@
+
+$(document).ready(function() {
+	setInterval(function() {
+		writeToConsole(5+6);
+	}, 5000);
+	
+	var last = "";
+	function writeToConsole(content) {
+		if (last == content)
+			return;
+		debugger;
+		last = content;
+		console.log(content)
+	}
+});
