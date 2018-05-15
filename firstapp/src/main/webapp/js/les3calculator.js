@@ -72,8 +72,8 @@ $(document).ready(function() {
 		addNumber(0);
 	});
 	function addOpperator(op){
-		numbers += display.html() + op;
-		display.html("");
+		numbers += display.html();
+		display.html(op);
 	}
 	
 	function clearCalc() {

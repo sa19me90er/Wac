@@ -1,3 +1,9 @@
+* {
+  font-size: 100%;
+ 
+ font-family: Tahoma;
+}
+
 .container{
 	padding-top:20px;
 }
@@ -18,8 +24,12 @@ body{
 table{
 	background-color: Sienna ;
 	 		padding: 5px;
+	 		 font-color: white;
 	
 }
 td:hover, li:hover{
    color: white;
 }
+
+td, #stad {cursor: pointer;}
+

@@ -1,9 +1,9 @@
 $(document).ready(function() {
 	
 	function getDestinations(){
-		$.getJSON("/restservices/countries",function (result){
+		$.getJSON("/firstapp/restservices/countries/",function (result){
 			var table = $("#destination-items");
-			var body = table.find("tbody");
+			var body = table.find("destination-items");
 			body.empty();
 			for(var item in result){
 				var value = result[item];
@@ -19,24 +19,23 @@ $(document).ready(function() {
 		$(".country").on("click",function (){
 			var item = $(this);
 			var lat = item.data("lat");
-			var long = item.data("long");
 			showWeather(lat,long);
 		});
 	}
 	
 	function loadLocation() {
-		$.getJSON("http://ip-api.com/json", function(result){
+		$.getJSON("https://ipapi.co/json", function(result){
 			var location = $("#location-items");
 			location.empty();
 			
-			location.append("<li>Landcode: "+result.countryCode+"</li>");
-			location.append("<li>Land: "+result.country+"</li>");
+			location.append("<li>Landcode: "+result.country+"</li>");
+			location.append("<li>Land: "+result.country_name+"</li>");
 			location.append("<li>Regio: "+result.region+"</li>");
 			location.append("<li>Stad: "+result.city+"</li>");
-			location.append("<li>Postcode: "+result.zip+"</li>");
-			location.append("<li>Latitude: "+result.lat+"</li>");
-			location.append("<li>Longtitude: "+result.lon+"</li>");
-			location.append("<li>Ip: "+result.query+"</li>");
+			location.append("<li>Postcode: "+result.postal+"</li>");
+			location.append("<li>Latitude: "+result.latitude+"</li>");
+			location.append("<li>Longtitude: "+result.longitude+"</li>");
+			location.append("<li>Ip: "+result.ip+"</li>");
 			
 			showWeather(result.lat,result.lon);
 			
@@ -47,7 +46,7 @@ $(document).ready(function() {
 	}
 	
 	function showWeather(lat,long){
-		var time = localStorage.getItem(lat+long+"time");
+		var time = localStorage.getItem(city);
 		var refresh = true;
 		if(time != null)
 		{
@@ -63,10 +62,11 @@ $(document).ready(function() {
 		if(!refresh)
 			return;
 		
-		$.getJSON("http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&appid=7aba276c0999327bea88ac89dc97703a",function (result){
+//		$.getJSON("http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&appid=7aba276c0999327bea88ac89dc97703a",function (result){
+		$.getJSON("http://api.openweathermap.org/data/2.5/weather?q={"+city+"}",function (result){
 			refreshLocation(result);
-			localStorage.setItem(lat+long+"time", new Date());
-			localStorage.setItem(lat+long+"data", JSON.stringify(result));
+			localStorage.setItem(city, new city());
+			localStorage.setItem(city , JSON.stringify(result));
 		});
 	}
 	

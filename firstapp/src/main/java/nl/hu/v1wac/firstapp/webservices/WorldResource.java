@@ -43,28 +43,7 @@ public class WorldResource
 	public String getWorldResource()
 	{
 		ArrayList<Country> countries = _countryDao.findAll();
-		JsonArrayBuilder jab = Json.createArrayBuilder();
-
-		for (Country c : countries)
-		{
-			JsonObjectBuilder job = Json.createObjectBuilder();
-			job.add("code", c.getCode());
-			job.add("name", c.getName());
-			job.add("capital", c.getCapital());
-			job.add("surface", c.getSurface());
-			job.add("goverment", c.getGovernment());
-			job.add("lat", c.getLatitude());
-			job.add("lng", c.getLongitude());
-			job.add("iso3", c.getIso3Code());
-			job.add("continent", c.getContinent());
-			job.add("region", c.getRegion());
-			job.add("population", c.getPopulation());
-
-			jab.add(job);
-		}
-
-		JsonArray array = jab.build();
-		return array.toString();
+		return getObjects(countries);
 	}
 
 	@GET
@@ -74,26 +53,8 @@ public class WorldResource
 	{
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		ArrayList<Country> countries = _countryDao.findTenLargestSurface();
-		for (Country c : countries)
-		{
-			JsonObjectBuilder job = Json.createObjectBuilder();
-			job.add("code", c.getCode());
-			job.add("name", c.getName());
-			job.add("capital", c.getCapital());
-			job.add("surface", c.getSurface());
-			job.add("goverment", c.getGovernment());
-			job.add("lat", c.getLatitude());
-			job.add("lng", c.getLongitude());
-			job.add("iso3", c.getIso3Code());
-			job.add("continent", c.getContinent());
-			job.add("region", c.getRegion());
-			job.add("population", c.getPopulation());
-
-			jab.add(job);
-		}
-
-		JsonArray array = jab.build();
-		return array.toString();
+		return getObjects(countries);
+	
 	}
 
 	@GET
@@ -103,27 +64,7 @@ public class WorldResource
 	{
 		
 		ArrayList<Country> countries = _countryDao.findTenLargestPopulations();
-		JsonArrayBuilder jab = Json.createArrayBuilder();
-		for (Country c : countries)
-		{
-			JsonObjectBuilder job = Json.createObjectBuilder();
-			job.add("code", c.getCode());
-			job.add("name", c.getName());
-			job.add("capital", c.getCapital());
-			job.add("surface", c.getSurface());
-			job.add("goverment", c.getGovernment());
-			job.add("lat", c.getLatitude());
-			job.add("lng", c.getLongitude());
-			job.add("iso3", c.getIso3Code());
-			job.add("continent", c.getContinent());
-			job.add("region", c.getRegion());
-			job.add("population", c.getPopulation());
-
-			jab.add(job);
-		}
-
-		JsonArray array = jab.build();
-		return array.toString();
+		return getObjects(countries);
 	}
 
 	@GET
@@ -195,5 +136,31 @@ public class WorldResource
 		
 		
 		_countryDao.save(country);
+	}
+	
+	
+	public String getObjects(ArrayList<Country> countryList){
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+
+		for (Country c : countryList)
+		{
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("code", c.getCode());
+			job.add("name", c.getName());
+			job.add("capital", c.getCapital());
+			job.add("surface", c.getSurface());
+			job.add("goverment", c.getGovernment());
+			job.add("lat", c.getLatitude());
+			job.add("lng", c.getLongitude());
+			job.add("iso3", c.getIso3Code());
+			job.add("continent", c.getContinent());
+			job.add("region", c.getRegion());
+			job.add("population", c.getPopulation());
+
+			jab.add(job);
+		}
+
+		JsonArray array = jab.build();
+		return array.toString();
 	}
 }
